@@ -24,9 +24,9 @@
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/blankFragment"
-        android:name="com.example.taskapp.BlankFragment"
+        android:name="com.example.taskapp.NewsFragment"
         android:label="fragment_blank"
-        tools:layout="@layout/fragment_blank" />
+        tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.taskapp.ui.profile.ProfileFragment"
