@@ -11,6 +11,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
     private NavController navController;
 
@@ -35,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
                 navView.setVisibility(View.GONE);
             }
             if (destination.getId()== R.id.boardFragment){
-                getSupportActionBar().hide();
+                Objects.requireNonNull(getSupportActionBar()).hide();
             }  else {
-            getSupportActionBar().show();
+            Objects.requireNonNull(getSupportActionBar()).show();
             }
         });
-        if (true){
-            navController.navigate(R.id.boardFragment);
-        }
+        Prefs prefs = new Prefs(this);
+        if (!prefs.isBoardShown())
+        navController.navigate(R.id.boardFragment);
     }
 
 

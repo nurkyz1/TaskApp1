@@ -25,6 +25,9 @@
     android:id="@+id/btnSave"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    style="@style/ButtonStyle"
     android:layout_marginTop="16dp"
+    android:background="@drawable/bg_button"
     android:text="Save"/>
+
 </LinearLayout>
