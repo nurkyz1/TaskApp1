@@ -16,8 +16,9 @@ import com.example.taskapp.R;
 import com.example.taskapp.databinding.PagerBoardBinding;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
-    private final String [] titles = new String[]{"Культура","Путешествия", "Спорт"};
-    private  final  int [] image = new int []{R.drawable.img,R.drawable.img_4,R.drawable.img_1};
+    private final String [] titles = new String[]{"","", ""};
+    private  final  String [] description = new String[]{};
+    private  final  int [] images= new int[]{R.raw.one_image,R.raw.two_image,R.raw.three_image};
     private PagerBoardBinding binding;
 
     @NonNull
@@ -50,7 +51,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         }
         public  void  bind(int position){
            binding.textTitle.setText(titles[position]);
-           binding.imageView.setImageResource(image[position]);
+           binding.gif.setAnimation(images[position]);
            binding.btnNext.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
