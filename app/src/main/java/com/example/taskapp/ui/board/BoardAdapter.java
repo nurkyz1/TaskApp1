@@ -16,10 +16,15 @@ import com.example.taskapp.R;
 import com.example.taskapp.databinding.PagerBoardBinding;
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
-    private final String [] titles = new String[]{"","", ""};
-    private  final  String [] description = new String[]{};
+    private final String [] titles = new String[]{"News ","Add news", "World news"};
+    private  final  String [] description = new String[]{" Reading new news","You can add news yourself", "Reading news world" };
     private  final  int [] images= new int[]{R.raw.one_image,R.raw.two_image,R.raw.three_image};
     private PagerBoardBinding binding;
+    private Finish finish;
+
+    public void setFinish(Finish finish) {
+        this.finish = finish;
+    }
 
     @NonNull
     @Override
@@ -52,13 +57,16 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         public  void  bind(int position){
            binding.textTitle.setText(titles[position]);
            binding.gif.setAnimation(images[position]);
-           binding.btnNext.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   NavController navController = Navigation.findNavController((Activity) itemView.getContext(),R.id.nav_host_fragment);
-                   navController.navigateUp();
-               }
-           });
+           binding.textDesc.setText(description[position]);
+            binding.btnNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish.btnFinish();
+                }
+            });
         }
+    }
+    interface Finish{
+        void btnFinish();
     }
 }

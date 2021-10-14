@@ -1,5 +1,6 @@
 package com.example.taskapp.ui.board;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -21,7 +22,7 @@ import com.example.taskapp.R;
 import com.example.taskapp.databinding.FragmentBoardBinding;
 import com.example.taskapp.databinding.PagerBoardBinding;
 
-public class BoardFragment extends Fragment {
+public class BoardFragment extends Fragment implements BoardAdapter.Finish {
     FragmentBoardBinding binding;
 
     @Override
@@ -44,6 +45,7 @@ public class BoardFragment extends Fragment {
         ViewPager2 viewPager = view.findViewById(R.id.viewPager);
         BoardAdapter adapter = new BoardAdapter();
         viewPager.setAdapter(adapter);
+        adapter.setFinish(this);
         binding.indicator.setViewPager2(binding.viewPager);
 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -55,15 +57,20 @@ public class BoardFragment extends Fragment {
        binding.btnSkip.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               close();
+               NavController navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment);
+               navController.navigateUp();
            }
        });
 
     }
     private  void  close(){
-        Prefs prefs = new Prefs(requireContext());
-        prefs.saveBoardState();
         NavController navController= Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         navController.navigateUp();
+    }
+
+    @Override
+    public void btnFinish() {
+        new Prefs(requireContext()).saveBoardState();
+        close();
     }
 }

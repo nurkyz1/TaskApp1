@@ -26,9 +26,9 @@ public class Prefs {
         sharedPreferences.edit().putString(FOR_NAME, name).apply();
     }
     public  void  setForImage(Uri image){
-        sharedPreferences.edit().putString(FOR_IMAGE,image.toString()).apply();
+        sharedPreferences.edit().putString("image",image.toString()).apply();
     }
     public String getForImage(){
-        return sharedPreferences.getString(FOR_IMAGE," ");
+        return sharedPreferences.getString("image"," ");
     }
 }
