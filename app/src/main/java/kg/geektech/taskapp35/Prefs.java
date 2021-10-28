@@ -1,13 +1,12 @@
-package com.example.taskapp;
+package kg.geektech.taskapp35;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
 public class Prefs {
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
     public  static  final  String FOR_NAME = "NAME";
-    public  static  final String FOR_IMAGE = "IMAGE";
 
     public  Prefs(Context context){
         sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);

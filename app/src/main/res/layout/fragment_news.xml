@@ -6,7 +6,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:orientation="vertical"
-    tools:context=".NewsFragment">
+    tools:context="kg.geektech.taskapp35.NewsFragment">
+
+    <TextView
+        android:id="@+id/textIMG"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:padding="16dp"
+        android:text="Прикрепить файл"
+        android:layout_marginBottom="20dp"
+
+        />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

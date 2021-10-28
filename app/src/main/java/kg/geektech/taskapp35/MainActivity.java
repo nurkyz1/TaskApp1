@@ -1,4 +1,4 @@
-package com.example.taskapp;
+package kg.geektech.taskapp35;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -42,12 +43,17 @@ public class MainActivity extends AppCompatActivity {
             Objects.requireNonNull(getSupportActionBar()).show();
             }
         });
+        if (FirebaseAuth.getInstance().getCurrentUser()==null) {
+            navController.navigate(R.id.loginFragment);
+        }
         Prefs prefs = new Prefs(this);
-        if (!prefs.isBoardShown())
-        navController.navigate(R.id.boardFragment);
+        if (!prefs.isBoardShown()) {
+            navController.navigate(R.id.boardFragment);
+        }else {
+            navController.navigateUp();
+        }
+
     }
-
-
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp();

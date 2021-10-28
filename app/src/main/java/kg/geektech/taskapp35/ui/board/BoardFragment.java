@@ -1,7 +1,9 @@
-package com.example.taskapp.ui.board;
+package kg.geektech.taskapp35.ui.board;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -9,18 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.taskapp.Prefs;
-import com.example.taskapp.R;
-import com.example.taskapp.databinding.FragmentBoardBinding;
-import com.example.taskapp.databinding.PagerBoardBinding;
+import kg.geektech.taskapp35.Prefs;
+import kg.geektech.taskapp35.R;
+import kg.geektech.taskapp35.databinding.FragmentBoardBinding;
 
 public class BoardFragment extends Fragment implements BoardAdapter.Finish {
     FragmentBoardBinding binding;
@@ -32,11 +27,10 @@ public class BoardFragment extends Fragment implements BoardAdapter.Finish {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentBoardBinding.inflate(inflater, container, false);
-      View view = binding.getRoot();
-    return  view;
+        return binding.getRoot();
     }
 
     @Override
@@ -54,12 +48,9 @@ public class BoardFragment extends Fragment implements BoardAdapter.Finish {
                 requireActivity().finish();
             }
         });
-       binding.btnSkip.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               NavController navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment);
-               navController.navigateUp();
-           }
+       binding.btnSkip.setOnClickListener(v -> {
+           NavController navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment);
+           navController.navigateUp();
        });
 
     }

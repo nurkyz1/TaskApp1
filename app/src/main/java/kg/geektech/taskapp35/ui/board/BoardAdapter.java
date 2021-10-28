@@ -1,19 +1,15 @@
-package com.example.taskapp.ui.board;
+package kg.geektech.taskapp35.ui.board;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskapp.R;
-import com.example.taskapp.databinding.PagerBoardBinding;
+import kg.geektech.taskapp35.R;
+import kg.geektech.taskapp35.databinding.PagerBoardBinding;
+
 
 public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> {
     private final String [] titles = new String[]{"News ","Add news", "World news"};
@@ -58,12 +54,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
            binding.textTitle.setText(titles[position]);
            binding.gif.setAnimation(images[position]);
            binding.textDesc.setText(description[position]);
-            binding.btnNext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish.btnFinish();
-                }
-            });
+            binding.btnNext.setOnClickListener(v -> finish.btnFinish());
         }
     }
     interface Finish{

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.board.BoardFragment">
+    tools:context="kg.geektech.taskapp35.ui.board.BoardFragment">
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
