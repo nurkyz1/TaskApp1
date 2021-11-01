@@ -4,36 +4,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import kg.geektech.taskapp35.OnItemClickListener;
 import kg.geektech.taskapp35.R;
 import kg.geektech.taskapp35.ui.models.News;
 
-public class HomeFragment extends Fragment implements OnItemClickListener {
-   private NewsAdapter adapter;
-    RecyclerView recyclerView;
-    LinearLayout listNews;
+public class HomeFragment extends Fragment {
 
+    private NewsAdapter adapter;
+    private RecyclerView recyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +37,10 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
            if (news.getEmail()!=null && news.getEmail().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
                 openFragment(news);
            }else {
+               Bundle bundle = new Bundle();
+               bundle.putSerializable("news",news);
+               NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+               navController.navigate(R.id.newsNewFragment, bundle);
            Toast.makeText(requireActivity(), news.getId(), Toast.LENGTH_SHORT).show();
             FirebaseFirestore.getInstance().collection("news").document(news.getId())
                     .update("view_count", FieldValue.increment(1));
@@ -53,9 +50,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        listNews = view.findViewById(R.id.listNews);
-        return view;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -81,7 +76,7 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
         Bundle bundle = new Bundle();
         bundle.putSerializable("news",news);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-    navController.navigate(R.id.blankFragment, bundle);
+    navController.navigate(R.id.newsFragment, bundle);
     }
     private void readData(){
         FirebaseFirestore db= FirebaseFirestore.getInstance();
@@ -107,10 +102,6 @@ public class HomeFragment extends Fragment implements OnItemClickListener {
                     }
                     adapter.addItems(list);
                 });
-    }
-
-    @Override
-    public void onItemClick(int pos) {
     }
 }
 

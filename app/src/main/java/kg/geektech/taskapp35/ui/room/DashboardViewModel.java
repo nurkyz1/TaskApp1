@@ -1,4 +1,4 @@
-package kg.geektech.taskapp35.ui.dashboard;
+package kg.geektech.taskapp35.ui.room;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

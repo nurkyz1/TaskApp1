@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="kg.geektech.taskapp35.ui.dashboard.DashboardFragment"
+        android:name="kg.geektech.taskapp35.ui.room.RoomFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_room" />
 
     <fragment
         android:id="@+id/navigation_notifications"
@@ -23,7 +23,7 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
-        android:id="@+id/blankFragment"
+        android:id="@+id/newsFragment"
         android:name="kg.geektech.taskapp35.NewsFragment"
         android:label="fragment_blank"
         tools:layout="@layout/fragment_news" />
@@ -42,4 +42,9 @@
         android:name="kg.geektech.taskapp35.ui.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/newsNewFragment"
+        android:name="kg.geektech.taskapp35.ui.NewsNewFragment"
+        android:label="fragment_news_new"
+        tools:layout="@layout/fragment_news_new" />
 </navigation>

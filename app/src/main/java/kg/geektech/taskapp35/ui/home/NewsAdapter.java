@@ -6,18 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import kg.geektech.taskapp35.OnItemClickListener;
 import kg.geektech.taskapp35.R;
 import kg.geektech.taskapp35.databinding.ListNewsBinding;
 import kg.geektech.taskapp35.ui.models.News;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    ArrayList<News> list = new ArrayList<>();
+    private final ArrayList<News> list = new ArrayList<>();
     ConstraintLayout listNews;
     private OnItemClickListener onItemClickListener;
 
@@ -32,10 +37,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         holder.bind(list.get(position));
-        if (position % 2 == 0) {
-            listNews.setBackgroundColor(Color.WHITE);
-        } else
-            listNews.setBackgroundColor(Color.DKGRAY);
     }
 
 
@@ -74,14 +75,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             binding = ListNewsBinding.bind(itemView);
             textTitle = itemView.findViewById(R.id.text_title);
             itemView.setOnClickListener(v -> onItemClickListener.onItemClick(getAdapterPosition()));
+            if (getAdapterPosition() % 2 == 0) {
+                listNews.setBackgroundColor(Color.GRAY);
+            } else
+                listNews.setBackgroundColor(Color.WHITE);
         }
 
         public void bind(News news) {
-            textTitle.setText(news.getTitle());
+            binding.textTitle.setText(news.getTitle());
             binding.email.setText(news.getEmail());
             binding.textTime.setText(changeTypeOfDateToAgo(news.getCreatedAt()));
-          //  binding.textTime.setText(DateUtils.formatDateTime(itemView.getContext()
-          //          ,news.getCreateAt(),DateUtils.FORMAT_SHOW_TIME));
+            binding.textVie.setText(String.valueOf(news.getView_count()));
             binding.getRoot().setOnLongClickListener((View v) -> {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(binding.getRoot().getContext());
                 String positive = "Да";
@@ -89,15 +93,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                 dialog.setMessage("Вы хотите удолить ?");
                 dialog.setPositiveButton(positive, (dialog1, which) -> {
                     list.remove(getAdapterPosition());
-                notifyItemRemoved(getAdapterPosition());
+                    notifyItemRemoved(getAdapterPosition());
                 });
                 dialog.setNegativeButton(negative, null);
                 dialog.show();
                 return true;
             });
-
+            Glide.with(itemView.getContext()).load(news.getImageUrl())
+                    .override(500, 500).circleCrop().into(binding.img);
 
         }
+
         private String changeTypeOfDateToAgo(Object createdAt) {
 
             long milliSecPerMinute = 60 * 1000;
@@ -114,36 +120,31 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
                     } else {
                         return agoTime = String.valueOf(Math.round(msExpired / 1000) + " seconds ago...");
                     }
-                }
-                else if (msExpired < milliSecPerHour) {
+                } else if (msExpired < milliSecPerHour) {
                     if (Math.round(msExpired / milliSecPerMinute) == 1) {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerMinute)) + " minute ago... ";
                     } else {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerMinute)) + " minutes ago... ";
                     }
-                }
-                else if (msExpired < milliSecPerDay) {
+                } else if (msExpired < milliSecPerDay) {
                     if (Math.round(msExpired / milliSecPerHour) == 1) {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerHour)) + " hour ago... ";
                     } else {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerHour)) + " hours ago... ";
                     }
-                }
-                else if (msExpired < milliSecPerMonth) {
+                } else if (msExpired < milliSecPerMonth) {
                     if (Math.round(msExpired / milliSecPerDay) == 1) {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerDay)) + " day ago... ";
                     } else {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerDay)) + " days ago... ";
                     }
-                }
-                else if (msExpired < milliSecPerYear) {
+                } else if (msExpired < milliSecPerYear) {
                     if (Math.round(msExpired / milliSecPerMonth) == 1) {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerMonth)) + "  month ago... ";
                     } else {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerMonth)) + "  months ago... ";
                     }
-                }
-                else {
+                } else {
                     if (Math.round(msExpired / milliSecPerYear) == 1) {
                         return agoTime = String.valueOf(Math.round(msExpired / milliSecPerYear)) + " year ago...";
                     } else {
@@ -154,5 +155,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             return agoTime = "time not found";
         }
     }
-    }
+}
 
