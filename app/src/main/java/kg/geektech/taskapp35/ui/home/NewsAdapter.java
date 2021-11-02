@@ -37,6 +37,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         holder.bind(list.get(position));
+        if (position % 2 == 0) {
+            listNews.setBackgroundColor(Color.GRAY);
+        } else
+            listNews.setBackgroundColor(Color.WHITE);
     }
 
 
@@ -75,10 +79,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
             binding = ListNewsBinding.bind(itemView);
             textTitle = itemView.findViewById(R.id.text_title);
             itemView.setOnClickListener(v -> onItemClickListener.onItemClick(getAdapterPosition()));
-            if (getAdapterPosition() % 2 == 0) {
-                listNews.setBackgroundColor(Color.GRAY);
-            } else
-                listNews.setBackgroundColor(Color.WHITE);
         }
 
         public void bind(News news) {

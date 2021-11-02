@@ -37,10 +37,7 @@ public class HomeFragment extends Fragment {
            if (news.getEmail()!=null && news.getEmail().equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail())){
                 openFragment(news);
            }else {
-               Bundle bundle = new Bundle();
-               bundle.putSerializable("news",news);
-               NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-               navController.navigate(R.id.newsNewFragment, bundle);
+               openNews(news);
            Toast.makeText(requireActivity(), news.getId(), Toast.LENGTH_SHORT).show();
             FirebaseFirestore.getInstance().collection("news").document(news.getId())
                     .update("view_count", FieldValue.increment(1));
@@ -77,6 +74,13 @@ public class HomeFragment extends Fragment {
         bundle.putSerializable("news",news);
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
     navController.navigate(R.id.newsFragment, bundle);
+    }
+    public void openNews(News news){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("key",news);
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.newsNewFragment, bundle);
+
     }
     private void readData(){
         FirebaseFirestore db= FirebaseFirestore.getInstance();
